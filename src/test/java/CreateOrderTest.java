@@ -14,17 +14,16 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class CreateOrderTest {
     UserClient userClient=new UserClient();
-    String token;
     AuthResponse logInResponse;
     IngredientsResponse ingredients;
     Ingredients ingredientsList;
-    AuthResponse response;
+    AuthResponse createResponse;
 
     @Before
     public void setUp() {
         Specification.installSpec(Specification.requestSpec("https://stellarburgers.nomoreparties.site", "api"), Specification.responseSpec());
-        response = userClient.createUserAndCheckStatusCode(Credentials.user);
-        token = response.getAccessToken();
+        createResponse = userClient.createUserAndCheckStatusCode(Credentials.user);
+
 
     }
     @After
@@ -32,7 +31,7 @@ public class CreateOrderTest {
     public void tearDown(){
 
         given()
-                .header("Authorization",response.getAccessToken())
+                .header("Authorization",createResponse.getAccessToken())
                 .body(Credentials.user)
                 .when()
                 .delete ("auth/user")
@@ -43,7 +42,7 @@ public class CreateOrderTest {
     @DisplayName("Create oder with authorization")
     public void createOrderWithAuthorization() {
 
-        logInResponse =userClient.userLoginAndCheckStatusCode(Credentials.userWithoutName);
+        logInResponse = userClient.userLoginAndCheckStatusCode(Credentials.userWithoutName);
         ingredients=sendGetRequestToGetListOfIngredients();
         IngredientsListGenerator ingredientsListGenerator = new IngredientsListGenerator();
         ArrayList<String> randomIngredientsList=ingredientsListGenerator.createIngredientsList(ingredients);
@@ -63,6 +62,7 @@ public class CreateOrderTest {
     public Response sendPostRequestCreateOrder() {
 
                 return given()
+                .header("Authorization",logInResponse.getAccessToken())
                 .body(ingredientsList)
                 .when()
                 .post("orders");}
@@ -73,6 +73,7 @@ public class CreateOrderTest {
                 .statusCode(HttpStatus.SC_OK).body("success",is(true))
                 .and().body("name",notNullValue()).body("order",notNullValue());
     }
+    //Этот тест будет падать из-за бага:заказ создается без авторизации
     @Test
     @DisplayName("Create oder without authorization")
     public void createOrderWithoutAuthorization() {
@@ -81,15 +82,26 @@ public class CreateOrderTest {
         IngredientsListGenerator ingredientsListGenerator = new IngredientsListGenerator();
         ArrayList<String> randomIngredientsList=ingredientsListGenerator.createIngredientsList(ingredients);
         ingredientsList = new Ingredients().setIngredients(randomIngredientsList);
-        Response response = sendPostRequestCreateOrder();
-        checkResponseOfCreateOrder(response);
-    }
+        Response response = sendPostRequestCreateOrderWithoutAuth();
+        checkResponseOfCreateOrderWithoutAuth(response);
+        }
+    @Step("Send POST request to /api/orders to create order")
+    public Response sendPostRequestCreateOrderWithoutAuth() {
+        return given()
+                .body(ingredientsList)
+                .when()
+                .post("orders");}
+
+    @Step("Check body and status code after create order without authorization")
+    public void checkResponseOfCreateOrderWithoutAuth (Response response) {
+        response.then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED).body("success",is(false))
+                .and().body("message",equalTo("You should be authorised"));}
     @Test
     @DisplayName("Create oder without ingredients")
     public void createOrderWithoutIngredients() {
-
+        logInResponse = userClient.userLoginAndCheckStatusCode(Credentials.userWithoutName);
         ingredients=sendGetRequestToGetListOfIngredients();
-        IngredientsListGenerator ingredientsListGenerator = new IngredientsListGenerator();
         ingredientsList = new Ingredients().setIngredients(new ArrayList<>(List.of(new String[]{})));
         Response response = sendPostRequestCreateOrder();
         checkResponseOfCreateOrderWithoutIngredients(response);
@@ -103,7 +115,7 @@ public class CreateOrderTest {
     @Test
     @DisplayName("Create oder with wrong ingredients")
     public void createOrderWithWrongIngredients() {
-
+        logInResponse = userClient.userLoginAndCheckStatusCode(Credentials.userWithoutName);
         ingredients=sendGetRequestToGetListOfIngredients();
         IngredientsListGenerator ingredientsListGenerator = new IngredientsListGenerator();
         ingredientsList = new Ingredients().setIngredients(new ArrayList<>(List.of(new String[]{"","",""})));
