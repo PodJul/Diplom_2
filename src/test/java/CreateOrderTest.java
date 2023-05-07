@@ -1,3 +1,5 @@
+import data.Credentials;
+import ingredientList.IngredientsListGenerator;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -6,6 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pogo.*;
+import user.UserClient;
+import utils.Specification;
+
 import java.util.ArrayList;
 import java.util.List;
 import static io.restassured.RestAssured.given;
@@ -22,10 +27,7 @@ public class CreateOrderTest {
     @Before
     public void setUp() {
         Specification.installSpec(Specification.requestSpec("https://stellarburgers.nomoreparties.site", "api"), Specification.responseSpec());
-        createResponse = userClient.createUserAndCheckStatusCode(Credentials.user);
-
-
-    }
+        createResponse = userClient.createUserAndCheckStatusCode(Credentials.user);}
     @After
     @Step("Delete user")
     public void tearDown(){

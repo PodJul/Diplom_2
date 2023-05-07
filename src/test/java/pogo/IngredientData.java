@@ -14,8 +14,8 @@ public class IngredientData {
     private String image_large;
     private int __v;
 
-    public IngredientData(String _id, String name, String type, int proteins, int fat, int carbohydrates, int calories, int price, String image, String image_mobile, String image_large, int __v) {
-        this._id = _id;
+    public IngredientData(String id, String name, String type, int proteins, int fat, int carbohydrates, int calories, int price, String image, String image_mobile, String image_large, int v) {
+        this._id = id;
         this.name = name;
         this.type = type;
         this.proteins = proteins;
@@ -26,12 +26,16 @@ public class IngredientData {
         this.image = image;
         this.image_mobile = image_mobile;
         this.image_large = image_large;
-        this.__v = __v;
+        this.__v = v;
     }
     public IngredientData(){};
 
     public String get_id() {
         return _id;
+    }
+
+    public int get__v() {
+        return __v;
     }
 
     public String getName() {
@@ -74,9 +78,7 @@ public class IngredientData {
         return image_large;
     }
 
-    public int get__v() {
-        return __v;
-    }
+
 }
 
 

@@ -6,7 +6,6 @@ public class AuthResponse {
     private String accessToken;
     private String refreshToken;
     User user;
-    private int statusCode;
 
 
     public boolean isSuccess() {
@@ -40,8 +39,5 @@ public class AuthResponse {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public int getStatusCode() {
-        return statusCode;
-    }
 }
+

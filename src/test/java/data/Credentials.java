@@ -1,9 +1,7 @@
-import pogo.Ingredients;
-import pogo.IngredientsListGenerator;
-import pogo.IngredientsResponse;
-import pogo.User;
+package data;
 
-import java.util.ArrayList;
+import pogo.User;
+import user.UserGenerator;
 
 public class Credentials {
 

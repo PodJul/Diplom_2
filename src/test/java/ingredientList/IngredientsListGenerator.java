@@ -1,4 +1,7 @@
-package pogo;
+package ingredientList;
+
+import pogo.IngredientData;
+import pogo.IngredientsResponse;
 
 import java.util.ArrayList;
 import java.util.Random;
