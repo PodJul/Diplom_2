@@ -96,7 +96,7 @@ public class UserClient {
                 .patch("auth/user")
                 .then();
     }
-    @Step("Check body and status code after change password")
+    @Step("Send PATCH request to /api/auth/user with new email without authorization")
     public ValidatableResponse sendPatchRequestWithoutAuthNewUserEmail() {
         return given()
                 .body(Credentials.userWithNewEmail)
