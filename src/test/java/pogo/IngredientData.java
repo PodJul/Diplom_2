@@ -1,7 +1,11 @@
 package pogo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class IngredientData {
-    private String _id;
+    @JsonProperty("_id")
+    private String id;
     private String name;
     private String type;
     private int proteins;
@@ -12,10 +16,11 @@ public class IngredientData {
     private String image;
     private String image_mobile;
     private String image_large;
-    private int __v;
+    @JsonProperty("__v")
+    private int v;
 
     public IngredientData(String id, String name, String type, int proteins, int fat, int carbohydrates, int calories, int price, String image, String image_mobile, String image_large, int v) {
-        this._id = id;
+        this.id = id;
         this.name = name;
         this.type = type;
         this.proteins = proteins;
@@ -26,16 +31,16 @@ public class IngredientData {
         this.image = image;
         this.image_mobile = image_mobile;
         this.image_large = image_large;
-        this.__v = v;
+        this.v = v;
     }
     public IngredientData(){};
 
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public int get__v() {
-        return __v;
+    public int getV() {
+        return v;
     }
 
     public String getName() {

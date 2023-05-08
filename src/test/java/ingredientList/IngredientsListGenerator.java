@@ -14,8 +14,8 @@ public class IngredientsListGenerator {
     int newN = random.nextInt(15);
     public ArrayList <String> createIngredientsList(IngredientsResponse ingredientsResponse){
 
-        ingredientsList.add(ingredientsResponse.getData().get(n).get_id());
-        ingredientsList.add(ingredientsResponse.getData().get(newN).get_id());
+        ingredientsList.add(ingredientsResponse.getData().get(n).getId());
+        ingredientsList.add(ingredientsResponse.getData().get(newN).getId());
         return ingredientsList;
     }
 
