@@ -23,6 +23,7 @@ What test i had done:
 * delete user etc.
 
 I used Postman to check all http-requests and responses while coding.
+
 I generated final report,using Allure Framework with Steps.
 
 ## Installation
