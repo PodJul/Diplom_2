@@ -1,14 +1,29 @@
-# ***Stellar Burgers Unit-tests*** 
+# ***Stellar Burgers API-tests*** 
 [![Stellar Burger App](https://github.com/PodJul/Diplom_3/blob/main/LogoSB.jpg)](https://stellarburgers.nomoreparties.site/)
 
 ![Java](https://img.shields.io/badge/Java-v.11-blueviolet) ![JUnit](https://img.shields.io/badge/JUnit-v.4.13-yellow
-) ![Mockito](https://img.shields.io/badge/Mockito-v.3.12.4-brightgreen) ![Jacoco](https://img.shields.io/badge/Jacoco-v.0.8.7-red) 
+) ![RestAssured](https://img.shields.io/badge/RestAssured-v.5.3.0-critical) ![Gson](https://img.shields.io/badge/Gson-v.2.8.9-green) 
 
-*Hey! Thank you for visit this repository. Let me introduce you [Stellar Burgers app](https://stellarburgers.nomoreparties.site/). You can create and order your own unic burger with cosmic ingredients. And while you're doing this, I will test the code of the app and it will be my diploma project.* 
 
-**Stellar Burgers Unit-tests** - the first part of my diploma. I had test Bun, Burger, Ingredient, IngredientType classes,using mocks, stubs, Parametrized.class and dependency injection.
 
-Code coverage is more than 80 percent. You can check it from jacoco report.
+The part ***Stellar Burgers API-tests*** is dedicated to test API, using RestAssured dependency. Also i used Gson to serialize and deserialized json.
+
+***API documentation*** you can watch [here](https://code.s3.yandex.net/qa-automation-engineer/java/cheatsheets/paid-track/diplom/api-documentation.pdf) 
+
+
+What test i had done:
+
+* create new user
+* create double user
+* create user without required fields
+* user authorization
+* change user data
+* create order
+* get user oder
+* delete user etc.
+
+I used Postman to check all http-requests and responses while coding.
+I generated final report,using Allure Framework with Steps.
 
 ## Installation
 
